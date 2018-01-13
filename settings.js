@@ -74,10 +74,7 @@ let markets = [
                         if(obj["MarketName"].includes('BTC-')) {
                             let coinName = obj["MarketName"].replace("BTC-", '');
                             if (!coin_prices[coinName]) coin_prices[coinName] = {};
-                            coin_prices[coinName]['bittrex'] = {
-                                bid: obj.Bid,
-                                ask: obj.Ask
-                            }; 
+                            coin_prices[coinName].bittrex = obj.Last;
                         }
                     }
                     res(coin_prices);
@@ -105,10 +102,8 @@ let markets = [
                         let coinName = key.toUpperCase();
                         let price = data[key]['ticker'].last;
                         if (!coin_prices[coinName]) coin_prices[coinName] = {};
-                        coin_prices[coinName]['btc38'] = {
-                            bid: data[key]['ticker'].buy / priceOfBTC,
-                            ask: data[key]['ticker'].sell / priceOfBTC
-                        }; 
+
+                        coin_prices[coinName]["btc38"] = data[key]['ticker'].last / priceOfBTC;
                     }
                     res(coin_prices);
                 }
@@ -135,10 +130,8 @@ let markets = [
                         let coinName = key.toUpperCase();
                         let price = data[key].last;
                         if (!coin_prices[coinName]) coin_prices[coinName] = {};
-                        coin_prices[coinName]['jubi'] = {
-                            bid: data[key].buy / priceOfBTC,
-                            ask: data[key].sell / priceOfBTC
-                        }; 
+
+                        coin_prices[coinName]["jubi"] = data[key].last / priceOfBTC;
                     }
                     res(coin_prices);
                 }
@@ -165,10 +158,7 @@ let markets = [
                         if(obj.includes('BTC_')&&obj!=="BTC_EMC2") {
                             let coinName = obj.replace("BTC_", '');
                             if (!coin_prices[coinName]) coin_prices[coinName] = {};
-                            coin_prices[coinName]['poloniex'] = {
-                                bid: data[obj].highestBid,
-                                ask: data[obj].lowestAsk
-                            }; 
+                            coin_prices[coinName].poloniex = data[obj].last;
                         }
                     }
                     res(coin_prices);
@@ -194,11 +184,8 @@ let markets = [
 					for (let obj of data.Data) {
 						if(obj["Label"].includes('/BTC')) {
 							let coinName = obj["Label"].replace("/BTC", '');
-                            if (!coin_prices[coinName]) coin_prices[coinName] = {};
-                            coin_prices[coinName]['cryptopia'] = {
-                                bid: obj.BidPrice,
-                                ask: obj.AskPrice
-                            }; 
+							if (!coin_prices[coinName]) coin_prices[coinName] = {};
+							coin_prices[coinName].cryptopia = obj.LastPrice;
                         }
                     }
                     res(coin_prices);
@@ -224,11 +211,8 @@ let markets = [
 					for (let obj of data.result) {
 						if(obj["MarketName"].includes('_BTC')) {
 							let coinName = obj["MarketName"].replace("_BTC", '');
-                            if (!coin_prices[coinName]) coin_prices[coinName] = {};
-                            coin_prices[coinName]['bleutrade'] = {
-                                bid: obj.Bid,
-                                ask: obj.Ask
-                            };
+							if (!coin_prices[coinName]) coin_prices[coinName] = {};
+							coin_prices[coinName].bleutrade = obj.Last;
                         }
                     }
                     res(coin_prices);
@@ -264,10 +248,9 @@ let markets = [
                         }
 
                         if (!coin_prices[coinName]) coin_prices[coinName] = {};
-                        coin_prices[coinName]['kraken'] = {
-                            bid: data.result[name].b[0],
-                            ask: data.result[name].a[0]
-                        }; 
+                        
+                        coin_prices[coinName].kraken = data.result[name].c[0];
+
                     }
                     res(coin_prices);
 
